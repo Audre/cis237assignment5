@@ -34,6 +34,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -41,6 +43,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Beverage.cs">
+      <DependentUpon>Beverages.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Beverages.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Beverages.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Beverages.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Beverages.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Beverages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Beverages.edmx</DependentUpon>
+    </Compile>
     <Compile Include="CSVProcessor.cs" />
     <Compile Include="IWineCollection.cs" />
     <Compile Include="Program.cs" />
@@ -51,6 +71,28 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <EntityDeploy Include="Beverages.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Beverages.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Beverages.edmx.diagram">
+      <DependentUpon>Beverages.edmx</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Beverages.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Beverages.edmx</DependentUpon>
+      <LastGenOutput>Beverages.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Beverages.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Beverages.edmx</DependentUpon>
+      <LastGenOutput>Beverages.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
