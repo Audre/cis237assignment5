@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="de80defaec954486813778e1ac1a4689" Name="Diagram1">
+      <Diagram DiagramId="39318453c6ff45caa87758d00e5323b3" Name="Diagram1">
         <EntityTypeShape EntityType="BeverageAStaffenModel.Beverage" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
       </Diagram>
     </edmx:Diagrams>

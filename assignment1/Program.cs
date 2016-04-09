@@ -27,7 +27,7 @@ namespace assignment1
             //Set a constant for the path to the CSV File
             const string pathToCSVFile = "../../../datafiles/winelist.csv";
 
-            BeverageAStaffenEntities beverageEntities = new BeverageAStaffenEntities();
+            BeverageAStaffenEntities2 beverageEntities = new BeverageAStaffenEntities2();
 
             //Create an instance of the UserInterface class
             UserInterface userInterface = new UserInterface();
@@ -94,11 +94,26 @@ namespace assignment1
                         //{
                         //    userInterface.DisplayItemFoundError();
                         //}
+
+                        string searchQuery = userInterface.GetSearchQuery();
+
+                        Beverage beverageToFind = beverageEntities.Beverages.Find(searchQuery);
+
+                        if (beverageToFind != null)
+                        {
+                            userInterface.DisplayItemFound(beverageToFind);
+                        }
+
+                        else
+                        {
+                            userInterface.DisplayItemFoundError();
+                        }
+
                         break;
 
                     case 3:
                         //Add A New Item To The List
-                        //string[] newItemInformation = userInterface.GetNewItemInformation();
+                        Beverage newItemInformation = userInterface.GetNewItemInformation();
                         //if (wineItemCollection.FindById(newItemInformation[0]) == null)
                         //{
                         //    wineItemCollection.AddNewItem(newItemInformation[0], newItemInformation[1], newItemInformation[2]);
@@ -108,6 +123,21 @@ namespace assignment1
                         //{
                         //    userInterface.DisplayItemAlreadyExistsError();
                         //}
+
+                        try
+                        {
+                            beverageEntities.Beverages.Add(newItemInformation);
+
+                            beverageEntities.SaveChanges();
+                        }
+
+                        catch
+                        {
+                            beverageEntities.Beverages.Remove(newItemInformation);
+
+                            Console.WriteLine("That beverage is already in the database.");
+                        }
+
                         break;
 
                     case 4:

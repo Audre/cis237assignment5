@@ -11,7 +11,7 @@ namespace assignment1
 {
     class UserInterface
     {
-        const int maxMenuChoice = 5;
+        const int maxMenuChoice = 6;
         //---------------------------------------------------
         //Public Methods
         //---------------------------------------------------
@@ -61,20 +61,50 @@ namespace assignment1
         }
 
         //Get New Item Information From The User.
-        public string[] GetNewItemInformation()
+        public Beverage GetNewItemInformation()
         {
-            Console.WriteLine();
-            Console.WriteLine("What is the new items Id?");
-            Console.Write("> ");
-            string id = Console.ReadLine();
-            Console.WriteLine("What is the new items Description?");
-            Console.Write("> ");
-            string description = Console.ReadLine();
-            Console.WriteLine("What is the new items Pack?");
-            Console.Write("> ");
-            string pack = Console.ReadLine();
+            decimal tempDec;
+            string tempString;
+            Beverage newBeverageToAdd = new Beverage();
 
-            return new string[] { id, description, pack };
+            Console.WriteLine();
+            Console.WriteLine("What is the ID?");
+            newBeverageToAdd.id = Console.ReadLine();
+            Console.WriteLine("What is the name?");
+            newBeverageToAdd.name = Console.ReadLine();
+            Console.WriteLine("What is the pack?");
+            newBeverageToAdd.pack = Console.ReadLine();
+            Console.WriteLine("What is the price?");
+            while (!decimal.TryParse(Console.ReadLine(), out tempDec))
+            {
+                Console.WriteLine("Please enter a number for the price.");
+            }
+            newBeverageToAdd.price = tempDec;
+
+            Console.WriteLine("Is the item active?");
+            tempString = Console.ReadLine();
+
+            while (tempString.ToLower() != "f" || tempString.ToLower() != "f")
+            {
+                Console.WriteLine("Please enter either true or false.");
+            }
+
+            if (tempString == "f")
+            {
+                newBeverageToAdd.active = false;
+            }
+            
+            else
+            {
+                newBeverageToAdd.active = true;
+            }
+
+            Console.WriteLine(newBeverageToAdd.id.Trim() + " " + newBeverageToAdd.name.Trim() + " " + newBeverageToAdd.pack.Trim() + " " + newBeverageToAdd.price.ToString("C") + " " + newBeverageToAdd.active);
+
+            return newBeverageToAdd;
+
+
+            
         }
 
         //Display Import Success
@@ -92,7 +122,7 @@ namespace assignment1
         }
 
         //Display All Items
-        public void DisplayAllItems(BeverageAStaffenEntities beverageOutput)
+        public void DisplayAllItems(BeverageAStaffenEntities2 beverageOutput)
         {
             Console.WriteLine();
             foreach (Beverage beverage in beverageOutput.Beverages)
@@ -110,11 +140,11 @@ namespace assignment1
         }
 
         //Display Item Found Success
-        public void DisplayItemFound(string itemInformation)
+        public void DisplayItemFound(Beverage beverageToFind)
         {
             Console.WriteLine();
             Console.WriteLine("Item Found!");
-            Console.WriteLine(itemInformation);
+            Console.WriteLine(beverageToFind.id.Trim() + " " + beverageToFind.name.Trim() + " " + beverageToFind.pack.Trim() + " " + beverageToFind.price.ToString("C") + " " + beverageToFind.active);
         }
 
         //Display Item Found Error
