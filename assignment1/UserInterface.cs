@@ -92,12 +92,13 @@ namespace assignment1
         }
 
         //Display All Items
-        public void DisplayAllItems(string[] allItemsOutput)
+        public void DisplayAllItems(BeverageAStaffenEntities beverageOutput)
         {
             Console.WriteLine();
-            foreach (string itemOutput in allItemsOutput)
+            foreach (Beverage beverage in beverageOutput.Beverages)
             {
-                Console.WriteLine(itemOutput);
+                Console.WriteLine(beverage.id.Trim() + " " + beverage.name.Trim() + " " + beverage.pack.Trim() + " "
+                    + beverage.price.ToString("c") + " " + beverage.active);
             }
         }
 
@@ -148,11 +149,12 @@ namespace assignment1
             Console.WriteLine();
             Console.WriteLine("What would you like to do?");
             Console.WriteLine();
-            Console.WriteLine("1. Load Wine List From CSV");
-            Console.WriteLine("2. Print The Entire List Of Items");
-            Console.WriteLine("3. Search For An Item");
-            Console.WriteLine("4. Add New Item To The List");
-            Console.WriteLine("5. Exit Program");
+            Console.WriteLine("1. Print The Entire List Of Items");
+            Console.WriteLine("2. Search For An Item");
+            Console.WriteLine("3. Add New Item To The List");
+            Console.WriteLine("4. Update An Existing Item");
+            Console.WriteLine("5. Delete An Existing Item");
+            Console.WriteLine("6. Exit Program");
         }
 
         //Display the Prompt
