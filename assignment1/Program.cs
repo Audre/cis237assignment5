@@ -21,22 +21,11 @@ namespace assignment1
     {
         static void Main(string[] args)
         {
-            //Set a constant for the size of the collection
-            const int wineItemCollectionSize = 4000;
-
-            //Set a constant for the path to the CSV File
-            const string pathToCSVFile = "../../../datafiles/winelist.csv";
-
+            // Create an instance of the beverage database
             BeverageAStaffenEntities2 beverageEntities = new BeverageAStaffenEntities2();
 
             //Create an instance of the UserInterface class
             UserInterface userInterface = new UserInterface();
-
-            //Create an instance of the WineItemCollection class
-            IWineCollection wineItemCollection = new WineItemCollection(wineItemCollectionSize);
-
-            //Create an instance of the CSVProcessor class
-            CSVProcessor csvProcessor = new CSVProcessor();
 
             //Display the Welcome Message to the user
             userInterface.DisplayWelcomeGreeting();
@@ -49,52 +38,14 @@ namespace assignment1
             {
                 switch (choice)
                 {
-                    //case 1:
-                    //    //Load the CSV File
-                    //    bool success = csvProcessor.ImportCSV(wineItemCollection, pathToCSVFile);
-                    //    if (success)
-                    //    {
-                    //        //Display Success Message
-                    //        userInterface.DisplayImportSuccess();
-                    //    }
-                    //    else
-                    //    {
-                    //        //Display Fail Message
-                    //        userInterface.DisplayImportError();
-                    //    }
-                    //    break;
-
                     case 1:
                         //Print Entire List Of Items
-                        //string[] allItems = wineItemCollection.GetPrintStringsForAllItems();
-                        //if (allItems.Length > 0)
-                        //{
-                        //    //Display all of the items
-                        //    userInterface.DisplayAllItems(allItems);
-                        //}
-                        //else
-                        //{
-                        //    //Display error message for all items
-                        //    userInterface.DisplayAllItemsError();
-                        //}
-
                         userInterface.DisplayAllItems(beverageEntities);
 
                         break;
 
                     case 2:
                         //Search For An Item
-                        //string searchQuery = userInterface.GetSearchQuery();
-                        //string itemInformation = wineItemCollection.FindById(searchQuery);
-                        //if (itemInformation != null)
-                        //{
-                        //    userInterface.DisplayItemFound(itemInformation);
-                        //}
-                        //else
-                        //{
-                        //    userInterface.DisplayItemFoundError();
-                        //}
-
                         string searchQuery = userInterface.GetSearchQuery();
 
                         Beverage beverageToFind = beverageEntities.Beverages.Find(searchQuery);
@@ -114,21 +65,14 @@ namespace assignment1
                     case 3:
                         //Add A New Item To The List
                         Beverage newItemInformation = userInterface.GetNewItemInformation();
-                        //if (wineItemCollection.FindById(newItemInformation[0]) == null)
-                        //{
-                        //    wineItemCollection.AddNewItem(newItemInformation[0], newItemInformation[1], newItemInformation[2]);
-                        //    userInterface.DisplayAddWineItemSuccess();
-                        //}
-                        //else
-                        //{
-                        //    userInterface.DisplayItemAlreadyExistsError();
-                        //}
 
                         try
                         {
                             beverageEntities.Beverages.Add(newItemInformation);
 
                             beverageEntities.SaveChanges();
+
+                            userInterface.DisplayAddWineItemSuccess();
                         }
 
                         catch
@@ -144,28 +88,74 @@ namespace assignment1
                         // Update An Existing Item
                         searchQuery = userInterface.GetUpdateQuery();
 
-                        beverageToFind = beverageEntities.Beverages.Find(searchQuery);
-
-                         
-
-                        if (beverageToFind != null)
+                        try
                         {
+                            beverageToFind = beverageEntities.Beverages.Find(searchQuery);
                             int updateChoice = userInterface.DisplayUpdateMenuAndGetResponse();
                             while (updateChoice != 5)
                             {
                                 userInterface.UpdateOptions(updateChoice, beverageToFind);
+                                updateChoice = userInterface.DisplayUpdateMenuAndGetResponse();
                             }
+
+                            beverageEntities.SaveChanges();
                         }
 
-                        else
+                        catch
                         {
                             userInterface.DisplayItemFoundError();
                         }
+
+                        //if (beverageToFind != null)
+                        //{
+                        //    int updateChoice = userInterface.DisplayUpdateMenuAndGetResponse();
+                        //    while (updateChoice != 5)
+                        //    {
+                        //        userInterface.UpdateOptions(updateChoice, beverageToFind);
+                        //        updateChoice = userInterface.DisplayUpdateMenuAndGetResponse();
+                        //    }
+
+                        //    beverageEntities.SaveChanges();
+                        //}
+
+                        //else
+                        //{
+                        //    userInterface.DisplayItemFoundError();
+                        //}
 
                         break;
 
                     case 5:
                         // Delete an Existing Item
+
+                        string deleteQuery = userInterface.GetDeleteQuery();
+
+                        Beverage beverageToDelete = beverageEntities.Beverages.Find(deleteQuery);
+
+                        try
+                        {
+                            beverageEntities.Beverages.Remove(beverageToDelete);
+                            beverageEntities.SaveChanges();
+                            userInterface.DisplayDeleteSuccess();
+                        }
+
+                        catch
+                        {
+                            userInterface.DisplayItemFoundError();
+                        }
+
+                        //if (beverageToDelete != null)
+                        //{
+                        //    beverageEntities.Beverages.Remove(beverageToDelete);
+                        //    beverageEntities.SaveChanges();
+                        //    userInterface.DisplayDeleteSuccess();
+                        //}
+
+                        //else
+                        //{
+                        //    userInterface.DisplayItemFoundError();
+                        //}
+
                         break;
                 }
 

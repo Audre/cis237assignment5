@@ -19,7 +19,7 @@ namespace assignment1
         //Display Welcome Greeting
         public void DisplayWelcomeGreeting()
         {
-            Console.WriteLine("Welcome to the wine program");
+            Console.WriteLine("Welcome to the wine program.");
         }
 
         //Display Menu And Get Response
@@ -64,7 +64,7 @@ namespace assignment1
         public string GetUpdateQuery()
         {
             Console.WriteLine();
-            Console.WriteLine("What woud you like to search for?");
+            Console.WriteLine("What item would you like to update?");
             Console.Write("> ");
             return Console.ReadLine();
         }
@@ -78,27 +78,35 @@ namespace assignment1
 
             Console.WriteLine();
             Console.WriteLine("What is the ID?");
+            Console.Write("> ");
             newBeverageToAdd.id = Console.ReadLine();
             Console.WriteLine("What is the name?");
+            Console.Write("> ");
             newBeverageToAdd.name = Console.ReadLine();
             Console.WriteLine("What is the pack?");
+            Console.Write("> ");
             newBeverageToAdd.pack = Console.ReadLine();
             Console.WriteLine("What is the price?");
+            Console.Write("> ");
             while (!decimal.TryParse(Console.ReadLine(), out tempDec))
             {
                 Console.WriteLine("Please enter a number for the price.");
+                Console.Write("> ");
             }
             newBeverageToAdd.price = tempDec;
 
             Console.WriteLine("Is the item active?");
+            Console.Write("> ");
             tempString = Console.ReadLine();
 
-            while (tempString.ToLower() != "f" || tempString.ToLower() != "f")
+            while (tempString.ToLower() != "f" && tempString.ToLower() != "t" && tempString.ToLower() != "false" && tempString.ToLower() != "true")
             {
                 Console.WriteLine("Please enter either true or false.");
+                Console.Write("> ");
+                tempString = Console.ReadLine();
             }
 
-            if (tempString == "f")
+            if (tempString == "f" || tempString == "false")
             {
                 newBeverageToAdd.active = false;
             }
@@ -108,7 +116,7 @@ namespace assignment1
                 newBeverageToAdd.active = true;
             }
 
-            Console.WriteLine(newBeverageToAdd.id.Trim() + " " + newBeverageToAdd.name.Trim() + " " + newBeverageToAdd.pack.Trim() + " " + newBeverageToAdd.price.ToString("C") + " " + newBeverageToAdd.active);
+            //Console.WriteLine(newBeverageToAdd.id.Trim() + " " + newBeverageToAdd.name.Trim() + " " + newBeverageToAdd.pack.Trim() + " " + newBeverageToAdd.price.ToString("C") + " " + newBeverageToAdd.active);
 
             return newBeverageToAdd;            
         }
@@ -117,14 +125,14 @@ namespace assignment1
         public void DisplayImportSuccess()
         {
             Console.WriteLine();
-            Console.WriteLine("Wine List Has Been Imported Successfully");
+            Console.WriteLine("Wine list has been imported successfully.");
         }
 
         //Display Import Error
         public void DisplayImportError()
         {
             Console.WriteLine();
-            Console.WriteLine("There was an error importing the CSV");
+            Console.WriteLine("There was an error importing the CSV.");
         }
 
         //Display All Items
@@ -142,14 +150,14 @@ namespace assignment1
         public void DisplayAllItemsError()
         {
             Console.WriteLine();
-            Console.WriteLine("There are no items in the list to print");
+            Console.WriteLine("There are no items in the list to print.");
         }
 
         //Display Item Found Success
         public void DisplayItemFound(Beverage beverageToFind)
         {
             Console.WriteLine();
-            Console.WriteLine("Item Found!");
+            Console.WriteLine("Item found!");
             Console.WriteLine(beverageToFind.id.Trim() + " " + beverageToFind.name.Trim() + " " + beverageToFind.pack.Trim() + " " + beverageToFind.price.ToString("C") + " " + beverageToFind.active);
         }
 
@@ -157,21 +165,35 @@ namespace assignment1
         public void DisplayItemFoundError()
         {
             Console.WriteLine();
-            Console.WriteLine("A Match was not found");
+            Console.WriteLine("A match was not found.");
         }
 
         //Display Add Wine Item Success
         public void DisplayAddWineItemSuccess()
         {
             Console.WriteLine();
-            Console.WriteLine("The Item was successfully added");
+            Console.WriteLine("The item was successfully added.");
         }
 
         //Display Item Already Exists Error
         public void DisplayItemAlreadyExistsError()
         {
             Console.WriteLine();
-            Console.WriteLine("An Item With That Id Already Exists");
+            Console.WriteLine("An item with that ID already exists.");
+        }
+
+        // Display deletion success
+        public void DisplayDeleteSuccess()
+        {
+            Console.WriteLine();
+            Console.WriteLine("The item was successfully deleted.");
+        }
+
+        // Display update success
+        public void DisplayUpdateSuccess()
+        {
+            Console.WriteLine();
+            Console.WriteLine("Item successfully updated.");
         }
 
         public Int32 DisplayUpdateMenuAndGetResponse()
@@ -213,26 +235,29 @@ namespace assignment1
 
             {
                 case 1:
-                    Console.WriteLine("Please Enter The New Name");
+                    Console.WriteLine("Please enter the new name.");
                     Console.Write("> ");
                     beverageToUpdate.name = Console.ReadLine();
+                    this.DisplayUpdateSuccess();
                     break;
 
                 case 2:
-                    Console.WriteLine("Please Enter The New Pack");
+                    Console.WriteLine("Please enter the new pack.");
                     Console.Write("> ");
                     beverageToUpdate.pack = Console.ReadLine();
+                    this.DisplayUpdateSuccess();
                     break;
 
                 case 3:
-                    Console.WriteLine("Please Enter The New Price");
+                    Console.WriteLine("Please enter the new price.");
                     Console.Write("> ");
                     while (!decimal.TryParse(Console.ReadLine(), out tempDec))
                     {
-                        Console.WriteLine("Please enter a number for the price");
+                        Console.WriteLine("Please enter a number for the price.");
                         Console.Write("> ");
                     }
                     beverageToUpdate.price = tempDec;
+                    this.DisplayUpdateSuccess();
                     break;
 
                 case 4:
@@ -240,24 +265,34 @@ namespace assignment1
                     Console.Write("> ");
                     tempString = Console.ReadLine();
 
-                    while (tempString.ToLower() != "f" || tempString.ToLower() != "f")
+                    while (tempString.ToLower() != "f" && tempString.ToLower() != "t" && tempString.ToLower() != "false" && tempString.ToLower() != "true")
                     {
                         Console.WriteLine("Please enter either true or false.");
                         Console.Write("> ");
+                        tempString = Console.ReadLine();
                     }
 
-                    if (tempString == "f")
+                    if (tempString == "f" || tempString == "false")
                     {
                         beverageToUpdate.active = false;
+                        this.DisplayUpdateSuccess();
                     }
 
                     else
                     {
                         beverageToUpdate.active = true;
+                        this.DisplayUpdateSuccess();
                     }
 
                     break;
             }
+        }
+
+        public string GetDeleteQuery()
+        {
+            Console.WriteLine("Enter the item to delete.");
+            Console.Write("> ");
+            return Console.ReadLine();
         }
 
 
@@ -271,11 +306,11 @@ namespace assignment1
             Console.WriteLine();
             Console.WriteLine("What would you like to do?");
             Console.WriteLine();
-            Console.WriteLine("1. Print The Entire List Of Items");
-            Console.WriteLine("2. Search For An Item");
-            Console.WriteLine("3. Add New Item To The List");
-            Console.WriteLine("4. Update An Existing Item");
-            Console.WriteLine("5. Delete An Existing Item");
+            Console.WriteLine("1. Print the entire list Of items.");
+            Console.WriteLine("2. Search for an item.");
+            Console.WriteLine("3. Add new item to the list.");
+            Console.WriteLine("4. Update an existing item.");
+            Console.WriteLine("5. Delete an existing item.");
             Console.WriteLine("6. Exit Program");
         }
 
@@ -290,7 +325,7 @@ namespace assignment1
         private void displayErrorMessage()
         {
             Console.WriteLine();
-            Console.WriteLine("That is not a valid option. Please make a valid choice");
+            Console.WriteLine("That is not a valid option. Please make a valid choice.");
         }
 
         //Get the selection from the user
@@ -331,7 +366,7 @@ namespace assignment1
         private void DisplayUpdateMenu()
         {
             Console.WriteLine();
-            Console.WriteLine("What Would You Like To Update?");
+            Console.WriteLine("What would you like to update?");
             Console.WriteLine();
             Console.WriteLine("1. Name");
             Console.WriteLine("2. Pack");
