@@ -25,6 +25,7 @@ namespace assignment1
         //Display Menu And Get Response
         public int DisplayMenuAndGetResponse()
         {
+            int maxMenuChoice = 6;
             //declare variable to hold the selection
             string selection;
 
@@ -36,7 +37,7 @@ namespace assignment1
             selection = this.getSelection();
 
             //While the response is not valid
-            while (!this.verifySelectionIsValid(selection))
+            while (!this.verifySelectionIsValid(selection, maxMenuChoice))
             {
                 //display error message
                 this.displayErrorMessage();
@@ -56,6 +57,14 @@ namespace assignment1
         {
             Console.WriteLine();
             Console.WriteLine("What would you like to search for?");
+            Console.Write("> ");
+            return Console.ReadLine();
+        }
+
+        public string GetUpdateQuery()
+        {
+            Console.WriteLine();
+            Console.WriteLine("What woud you like to search for?");
             Console.Write("> ");
             return Console.ReadLine();
         }
@@ -101,10 +110,7 @@ namespace assignment1
 
             Console.WriteLine(newBeverageToAdd.id.Trim() + " " + newBeverageToAdd.name.Trim() + " " + newBeverageToAdd.pack.Trim() + " " + newBeverageToAdd.price.ToString("C") + " " + newBeverageToAdd.active);
 
-            return newBeverageToAdd;
-
-
-            
+            return newBeverageToAdd;            
         }
 
         //Display Import Success
@@ -168,6 +174,92 @@ namespace assignment1
             Console.WriteLine("An Item With That Id Already Exists");
         }
 
+        public Int32 DisplayUpdateMenuAndGetResponse()
+        {
+            string selection;
+            int maxMenuChoice = 5;
+
+            //Display menu and prompt
+            this.DisplayUpdateMenu();
+            this.displayPrompt();
+
+            //Get the selection they enter
+            selection = this.getSelection();
+
+            //While the response is not valid
+            while (!this.verifySelectionIsValid(selection, maxMenuChoice))
+            {
+                //display error message
+                this.displayErrorMessage();
+
+                //display the prompt again
+                this.displayPrompt();
+
+                //get the selection again
+                selection = this.getSelection();
+            }
+
+            //Return the selection casted to an integer
+            return Int32.Parse(selection);
+        }
+
+        public void UpdateOptions(int choice, Beverage beverageToUpdate)
+        {
+
+            decimal tempDec;
+            string tempString;
+
+            switch (choice)
+
+            {
+                case 1:
+                    Console.WriteLine("Please Enter The New Name");
+                    Console.Write("> ");
+                    beverageToUpdate.name = Console.ReadLine();
+                    break;
+
+                case 2:
+                    Console.WriteLine("Please Enter The New Pack");
+                    Console.Write("> ");
+                    beverageToUpdate.pack = Console.ReadLine();
+                    break;
+
+                case 3:
+                    Console.WriteLine("Please Enter The New Price");
+                    Console.Write("> ");
+                    while (!decimal.TryParse(Console.ReadLine(), out tempDec))
+                    {
+                        Console.WriteLine("Please enter a number for the price");
+                        Console.Write("> ");
+                    }
+                    beverageToUpdate.price = tempDec;
+                    break;
+
+                case 4:
+                    Console.WriteLine("Is the item active?");
+                    Console.Write("> ");
+                    tempString = Console.ReadLine();
+
+                    while (tempString.ToLower() != "f" || tempString.ToLower() != "f")
+                    {
+                        Console.WriteLine("Please enter either true or false.");
+                        Console.Write("> ");
+                    }
+
+                    if (tempString == "f")
+                    {
+                        beverageToUpdate.active = false;
+                    }
+
+                    else
+                    {
+                        beverageToUpdate.active = true;
+                    }
+
+                    break;
+            }
+        }
+
 
         //---------------------------------------------------
         //Private Methods
@@ -208,7 +300,7 @@ namespace assignment1
         }
 
         //Verify that a selection from the main menu is valid
-        private bool verifySelectionIsValid(string selection)
+        private bool verifySelectionIsValid(string selection, int maxMenuChoice)
         {
             //Declare a returnValue and set it to false
             bool returnValue = false;
@@ -234,6 +326,18 @@ namespace assignment1
 
             //Return the reutrnValue
             return returnValue;
+        }
+
+        private void DisplayUpdateMenu()
+        {
+            Console.WriteLine();
+            Console.WriteLine("What Would You Like To Update?");
+            Console.WriteLine();
+            Console.WriteLine("1. Name");
+            Console.WriteLine("2. Pack");
+            Console.WriteLine("3. Price");
+            Console.WriteLine("4. Active");
+            Console.WriteLine("5. Exit");
         }
     }
 }

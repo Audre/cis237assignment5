@@ -142,6 +142,26 @@ namespace assignment1
 
                     case 4:
                         // Update An Existing Item
+                        searchQuery = userInterface.GetUpdateQuery();
+
+                        beverageToFind = beverageEntities.Beverages.Find(searchQuery);
+
+                         
+
+                        if (beverageToFind != null)
+                        {
+                            int updateChoice = userInterface.DisplayUpdateMenuAndGetResponse();
+                            while (updateChoice != 5)
+                            {
+                                userInterface.UpdateOptions(updateChoice, beverageToFind);
+                            }
+                        }
+
+                        else
+                        {
+                            userInterface.DisplayItemFoundError();
+                        }
+
                         break;
 
                     case 5:
