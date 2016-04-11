@@ -1,6 +1,6 @@
-﻿//Author: David Barnes
+﻿//Author: Audre Staffen
 //CIS 237
-//Assignment 1
+//Assignment 5
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -70,31 +70,31 @@ namespace assignment1
             return Console.ReadLine();
         }
 
-        //Get new item information from the user and assign to the corresponding field
+        //Get new item information from the user and assign to the corresponding property
         public Beverage GetNewItemInformation()
         {
             decimal tempDec;
             string tempString;
             Beverage newBeverageToAdd = new Beverage();
 
-            // Get ID and assign it to id field
+            // Get ID and assign it to id property
             Console.WriteLine();
             Console.WriteLine("What is the ID?");
             Console.Write("> ");
             newBeverageToAdd.id = Console.ReadLine();
 
-            // Get name and assign it to name field
+            // Get name and assign it to name property
             Console.WriteLine("What is the name?");
             Console.Write("> ");
             newBeverageToAdd.name = Console.ReadLine();
 
-            // Get pack and assign it to pack field
+            // Get pack and assign it to pack property
             Console.WriteLine("What is the pack?");
             Console.Write("> ");
             newBeverageToAdd.pack = Console.ReadLine();
 
             // Get price. Will continue to ask user for input until it can be converted
-            // to a decimal, then will convert to decimal and assign it to the price field
+            // to a decimal, then will convert to decimal and assign it to the price property
             Console.WriteLine("What is the price?");
             Console.Write("> ");
             while (!decimal.TryParse(Console.ReadLine(), out tempDec))
@@ -105,7 +105,7 @@ namespace assignment1
             newBeverageToAdd.price = tempDec;
 
             // Get active status. Will continue to ask user for input until t/f or true/false
-            // is entered, then will convert to boolean and assign it to the active field
+            // is entered, then will convert to boolean and assign it to the active property
             Console.WriteLine("Is the item active?");
             Console.Write("> ");
             tempString = Console.ReadLine();
@@ -233,7 +233,7 @@ namespace assignment1
             switch (choice)
 
             {
-                // Update name field and display update success message
+                // Update name property and display update success message
                 case 1:
                     Console.WriteLine("Please enter the new name.");
                     Console.Write("> ");
@@ -241,7 +241,7 @@ namespace assignment1
                     this.DisplayUpdateSuccess();
                     break;
 
-                // Update pack field and display update success message
+                // Update pack property and display update success message
                 case 2:
                     Console.WriteLine("Please enter the new pack.");
                     Console.Write("> ");
@@ -250,7 +250,7 @@ namespace assignment1
                     break;
 
                 // Allow user to input price. Will continue to ask for user input until
-                // it can be converted to a decimal, then will update price field and display
+                // it can be converted to a decimal, then will update price property and display
                 // update success message.
                 case 3:
                     Console.WriteLine("Please enter the new price.");
@@ -265,7 +265,7 @@ namespace assignment1
                     break;
 
                     // Allow user to input t/f or true/false. Will continue to ask for user input
-                    // until one of those four are typed, then will convert to bool and update the active field 
+                    // until one of those four are typed, then will convert to bool and update the active property 
                     // and display update success message.
                 case 4:
                     Console.WriteLine("Is the item active?");
@@ -314,7 +314,7 @@ namespace assignment1
             Console.WriteLine();
             Console.WriteLine("What would you like to do?");
             Console.WriteLine();
-            Console.WriteLine("1. Print the entire list Of items.");
+            Console.WriteLine("1. Print the entire list of items.");
             Console.WriteLine("2. Search for an item.");
             Console.WriteLine("3. Add new item to the list.");
             Console.WriteLine("4. Update an existing item.");

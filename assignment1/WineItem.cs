@@ -1,6 +1,6 @@
-﻿//Author: David Barnes
+﻿//Author: Audre Staffen
 //CIS 237
-//Assignment 1
+//Assignment 5
 using System;
 using System.Collections.Generic;
 using System.Linq;

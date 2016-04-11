@@ -1,13 +1,14 @@
-﻿//Author: David Barnes
+﻿//Author: Audre Staffen
 //CIS 237
-//Assignment 1
+//Assignment 5
 /*
  * The Menu Choices Displayed By The UI
- * 1. Load Wine List From CSV
- * 2. Print The Entire List Of Items
- * 3. Search For An Item
- * 4. Add New Item To The List
- * 5. Exit Program
+ * 1. Print The Entire List Of Items
+ * 2. Search For An Item
+ * 3. Add New Item To The List
+ * 4. Update Existing Item
+ * 5. Delete Existing Item
+ * 6. Exit Program
  */
 using System;
 using System.Collections.Generic;
