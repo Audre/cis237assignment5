@@ -61,6 +61,7 @@ namespace assignment1
             return Console.ReadLine();
         }
 
+        // Get the update query from the user
         public string GetUpdateQuery()
         {
             Console.WriteLine();
@@ -69,23 +70,31 @@ namespace assignment1
             return Console.ReadLine();
         }
 
-        //Get New Item Information From The User.
+        //Get new item information from the user and assign to the corresponding field
         public Beverage GetNewItemInformation()
         {
             decimal tempDec;
             string tempString;
             Beverage newBeverageToAdd = new Beverage();
 
+            // Get ID and assign it to id field
             Console.WriteLine();
             Console.WriteLine("What is the ID?");
             Console.Write("> ");
             newBeverageToAdd.id = Console.ReadLine();
+
+            // Get name and assign it to name field
             Console.WriteLine("What is the name?");
             Console.Write("> ");
             newBeverageToAdd.name = Console.ReadLine();
+
+            // Get pack and assign it to pack field
             Console.WriteLine("What is the pack?");
             Console.Write("> ");
             newBeverageToAdd.pack = Console.ReadLine();
+
+            // Get price. Will continue to ask user for input until it can be converted
+            // to a decimal, then will convert to decimal and assign it to the price field
             Console.WriteLine("What is the price?");
             Console.Write("> ");
             while (!decimal.TryParse(Console.ReadLine(), out tempDec))
@@ -95,6 +104,8 @@ namespace assignment1
             }
             newBeverageToAdd.price = tempDec;
 
+            // Get active status. Will continue to ask user for input until t/f or true/false
+            // is entered, then will convert to boolean and assign it to the active field
             Console.WriteLine("Is the item active?");
             Console.Write("> ");
             tempString = Console.ReadLine();
@@ -116,23 +127,8 @@ namespace assignment1
                 newBeverageToAdd.active = true;
             }
 
-            //Console.WriteLine(newBeverageToAdd.id.Trim() + " " + newBeverageToAdd.name.Trim() + " " + newBeverageToAdd.pack.Trim() + " " + newBeverageToAdd.price.ToString("C") + " " + newBeverageToAdd.active);
-
+            // return new Beverage
             return newBeverageToAdd;            
-        }
-
-        //Display Import Success
-        public void DisplayImportSuccess()
-        {
-            Console.WriteLine();
-            Console.WriteLine("Wine list has been imported successfully.");
-        }
-
-        //Display Import Error
-        public void DisplayImportError()
-        {
-            Console.WriteLine();
-            Console.WriteLine("There was an error importing the CSV.");
         }
 
         //Display All Items
@@ -196,6 +192,7 @@ namespace assignment1
             Console.WriteLine("Item successfully updated.");
         }
 
+        // Display menu for user to choose what to update and return user choice
         public Int32 DisplayUpdateMenuAndGetResponse()
         {
             string selection;
@@ -225,6 +222,8 @@ namespace assignment1
             return Int32.Parse(selection);
         }
 
+        // Allows user to update parts of the item depending on choice. There is no option
+        // to update ID.
         public void UpdateOptions(int choice, Beverage beverageToUpdate)
         {
 
@@ -234,6 +233,7 @@ namespace assignment1
             switch (choice)
 
             {
+                // Update name field and display update success message
                 case 1:
                     Console.WriteLine("Please enter the new name.");
                     Console.Write("> ");
@@ -241,6 +241,7 @@ namespace assignment1
                     this.DisplayUpdateSuccess();
                     break;
 
+                // Update pack field and display update success message
                 case 2:
                     Console.WriteLine("Please enter the new pack.");
                     Console.Write("> ");
@@ -248,6 +249,9 @@ namespace assignment1
                     this.DisplayUpdateSuccess();
                     break;
 
+                // Allow user to input price. Will continue to ask for user input until
+                // it can be converted to a decimal, then will update price field and display
+                // update success message.
                 case 3:
                     Console.WriteLine("Please enter the new price.");
                     Console.Write("> ");
@@ -260,6 +264,9 @@ namespace assignment1
                     this.DisplayUpdateSuccess();
                     break;
 
+                    // Allow user to input t/f or true/false. Will continue to ask for user input
+                    // until one of those four are typed, then will convert to bool and update the active field 
+                    // and display update success message.
                 case 4:
                     Console.WriteLine("Is the item active?");
                     Console.Write("> ");
@@ -288,6 +295,7 @@ namespace assignment1
             }
         }
 
+        // Get delete query
         public string GetDeleteQuery()
         {
             Console.WriteLine("Enter the item to delete.");
@@ -363,6 +371,7 @@ namespace assignment1
             return returnValue;
         }
 
+        // Display menu for update options
         private void DisplayUpdateMenu()
         {
             Console.WriteLine();

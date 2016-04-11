@@ -3,7 +3,7 @@
 ## Due 4-11-2016
 
 ## Author
-
+Audre Staffen
 ## Description
 
 Either modify what I have in my Asignment1 key, which is included here, or bring in your files and use that to do the work.
@@ -58,10 +58,10 @@ Solution Requirements:
 * UI Class to handle I/O
 
 ### Notes
-
+None.
 
 ## Outside Resources Used
-
+None.
 ## Known Problems, Issues, And/Or Errors in the Program
-
+None.
 

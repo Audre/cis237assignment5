@@ -49,12 +49,14 @@ namespace assignment1
                         string searchQuery = userInterface.GetSearchQuery();
 
                         Beverage beverageToFind = beverageEntities.Beverages.Find(searchQuery);
-
+                        
+                        // If there is an item, display item information
                         if (beverageToFind != null)
                         {
                             userInterface.DisplayItemFound(beverageToFind);
                         }
 
+                        // If there is not an item, display error message
                         else
                         {
                             userInterface.DisplayItemFoundError();
@@ -64,97 +66,82 @@ namespace assignment1
 
                     case 3:
                         //Add A New Item To The List
+                        // Get the new information about the item from the user
                         Beverage newItemInformation = userInterface.GetNewItemInformation();
+
 
                         try
                         {
+                            // Add the new information
                             beverageEntities.Beverages.Add(newItemInformation);
-
+                            // Save changes
                             beverageEntities.SaveChanges();
-
+                            // Display that adding was successful
                             userInterface.DisplayAddWineItemSuccess();
                         }
 
                         catch
                         {
+                            // Remove the new information added because that item is already in the database.
                             beverageEntities.Beverages.Remove(newItemInformation);
-
-                            Console.WriteLine("That beverage is already in the database.");
+                            // Display that the item already exists
+                            userInterface.DisplayItemAlreadyExistsError();
                         }
 
                         break;
 
                     case 4:
                         // Update An Existing Item
+                        // Get ID from user to search
                         searchQuery = userInterface.GetUpdateQuery();
 
                         try
                         {
+                            // Find if ID exists
                             beverageToFind = beverageEntities.Beverages.Find(searchQuery);
+                            // If the ID exists, display menu and get user choice on what to update
                             int updateChoice = userInterface.DisplayUpdateMenuAndGetResponse();
                             while (updateChoice != 5)
                             {
+                                // Depending on user's choice, allows user to update fields repeatedly until user chooses 5 to exit the update menu
                                 userInterface.UpdateOptions(updateChoice, beverageToFind);
                                 updateChoice = userInterface.DisplayUpdateMenuAndGetResponse();
                             }
-
+                            // Save update
                             beverageEntities.SaveChanges();
                         }
 
                         catch
                         {
+                            // If item already exists, displays error.
                             userInterface.DisplayItemFoundError();
                         }
-
-                        //if (beverageToFind != null)
-                        //{
-                        //    int updateChoice = userInterface.DisplayUpdateMenuAndGetResponse();
-                        //    while (updateChoice != 5)
-                        //    {
-                        //        userInterface.UpdateOptions(updateChoice, beverageToFind);
-                        //        updateChoice = userInterface.DisplayUpdateMenuAndGetResponse();
-                        //    }
-
-                        //    beverageEntities.SaveChanges();
-                        //}
-
-                        //else
-                        //{
-                        //    userInterface.DisplayItemFoundError();
-                        //}
 
                         break;
 
                     case 5:
                         // Delete an Existing Item
-
+                        // Prompts user for ID of item to delete
                         string deleteQuery = userInterface.GetDeleteQuery();
-
-                        Beverage beverageToDelete = beverageEntities.Beverages.Find(deleteQuery);
+                        
 
                         try
                         {
+                            // Finds if ID is already in database.
+                            Beverage beverageToDelete = beverageEntities.Beverages.Find(deleteQuery);
+                            // Removes item
                             beverageEntities.Beverages.Remove(beverageToDelete);
+                            // Saves remove
                             beverageEntities.SaveChanges();
+                            // Displays that delete was successful
                             userInterface.DisplayDeleteSuccess();
                         }
 
                         catch
                         {
+                            // If the itme is not in the database, displays error
                             userInterface.DisplayItemFoundError();
                         }
-
-                        //if (beverageToDelete != null)
-                        //{
-                        //    beverageEntities.Beverages.Remove(beverageToDelete);
-                        //    beverageEntities.SaveChanges();
-                        //    userInterface.DisplayDeleteSuccess();
-                        //}
-
-                        //else
-                        //{
-                        //    userInterface.DisplayItemFoundError();
-                        //}
 
                         break;
                 }
